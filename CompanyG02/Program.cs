@@ -82,14 +82,14 @@ namespace CompanyG02
                 #endregion
 
                 #region LazyLoading
-                var emp = (from e in companyDBContext.Employees.Include(e => e.Department).ThenInclude(d => d.Employees)
-                           where e.Id == 3
-                           select e).FirstOrDefault();
+                //var emp = (from e in companyDBContext.Employees.Include(e => e.Department).ThenInclude(d => d.Employees)
+                //           where e.Id == 3
+                //           select e).FirstOrDefault();
 
-                if (emp is not null)
-                {
-                    Console.WriteLine($"Employee: {emp.Name}, Department: {emp.Department?.Name ?? "Not Found"}");
-                }
+                //if (emp is not null)
+                //{
+                //    Console.WriteLine($"Employee: {emp.Name}, Department: {emp.Department?.Name ?? "Not Found"}");
+                //}
 
                 #endregion
 
@@ -114,16 +114,24 @@ namespace CompanyG02
                 //    Console.WriteLine($"{item.department.Name} : {item.emp?.Name??"No Emp"}");
                 //}
 
-                var crossJoinRes = from d in companyDBContext.Departments
-                                   from e in companyDBContext.Employees
-                                   select new
-                                   {
-                                       e,
-                                       d
-                                   };
-                foreach (var item in crossJoinRes)
+                //var crossJoinRes = from d in companyDBContext.Departments
+                //                   from e in companyDBContext.Employees
+                //                   select new
+                //                   {
+                //                       e,
+                //                       d
+                //                   };
+                //foreach (var item in crossJoinRes)
+                //{
+                //    Console.WriteLine($"{item.d.Name} : {item.e.Name}");
+                //}
+                #endregion
+
+                #region Mapping Views
+                var res = companyDBContext.EmployeeDepartmentsView;
+                foreach(var item in res)
                 {
-                    Console.WriteLine($"{item.d.Name} : {item.e.Name}");
+                    Console.WriteLine($"{item.DepartmentID}, {item.DepartmentName} : {item.EmployeeID}, {item.EmployeeName}");
                 }
                 #endregion
             }
