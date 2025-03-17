@@ -121,7 +121,7 @@ namespace CompanyG02
                                        e,
                                        d
                                    };
-                foreach(var item in crossJoinRes)
+                foreach (var item in crossJoinRes)
                 {
                     Console.WriteLine($"{item.d.Name} : {item.e.Name}");
                 }
