@@ -93,9 +93,39 @@ namespace CompanyG02
 
                 #endregion
 
-                CompanyDBContextSeed.Seed(companyDBContext);
-                
+                //CompanyDBContextSeed.Seed(companyDBContext);
 
+                #region left_outer_join..cross_join
+                //var leftoutjoinres = companyDBContext.Departments.GroupJoin(companyDBContext.Employees,
+                //    d => d.DepartmentId,
+                //    e => e.DepartmentId,
+                //    (department, employees) => new
+                //    {
+                //        department,
+                //        employees = employees.DefaultIfEmpty()
+                //    }).SelectMany(gColl => gColl.employees, (gColl, emp) => new 
+                //    {
+                //        emp,
+                //        gColl.department
+                //    });
+
+                //foreach(var item in leftoutjoinres)
+                //{
+                //    Console.WriteLine($"{item.department.Name} : {item.emp?.Name??"No Emp"}");
+                //}
+
+                var crossJoinRes = from d in companyDBContext.Departments
+                                   from e in companyDBContext.Employees
+                                   select new
+                                   {
+                                       e,
+                                       d
+                                   };
+                foreach(var item in crossJoinRes)
+                {
+                    Console.WriteLine($"{item.d.Name} : {item.e.Name}");
+                }
+                #endregion
             }
         }
     }
