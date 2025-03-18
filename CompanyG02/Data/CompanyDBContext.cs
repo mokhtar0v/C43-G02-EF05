@@ -45,12 +45,14 @@ namespace CompanyG02.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<EmployeeDepartments>().ToView("EmployeeDepartmentsView").HasNoKey();
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<EmployeeDepartments> EmployeeDepartmentsView { get; set; }
         //public DbSet<Product> Products { get; set; }
         //public DbSet<Project> Projects { get; set; }
 
